@@ -1,3 +1,2 @@
 # physics-sim
-
-simulating general relativity one step at a time
+maybe my summer project let's see
