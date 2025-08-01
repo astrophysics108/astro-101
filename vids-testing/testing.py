@@ -59,100 +59,87 @@ class MovingAngle(Scene):
 
 from manim_physics import *
 
-from manim import *
-import numpy as np
+class ElectricFieldExampleScene(Scene):
+    def construct(self):
+        charge1 = Charge(-1, LEFT + DOWN)
+        charge2 = Charge(2, RIGHT + DOWN)
+        charge3 = Charge(-1, UP)
+
+        # Create field with updaters based on the current charges
+        field = ElectricField(charge1, charge2, charge3)
+        
+        # Add an updater to the field to re-create it based on charges' current positions
+        def update_field(mob):
+            new_field = ElectricField(charge1, charge2, charge3)
+            mob.become(new_field)
+
+        field.add_updater(update_field)
+
+        self.add(charge1, charge2, charge3, field)
+
+        # Animate charge3 moving
+        self.play(charge3.animate.move_to(2 * UP + RIGHT), run_time=3)
+        
+        # Remove updater if no longer needed
+        field.remove_updater(update_field)
+
+        self.wait(1)
 
 class ElectricFieldManual(Scene):
     def construct(self):
-        # Define charges: list of tuples (charge, position)
-        charges = [
-            (-1, np.array([-2, -1, 0])),
-            (2, np.array([2, -1, 0])),
-            (-1, np.array([0, 2, 0]))
-        ]
+        charge1 = Charge(-1, LEFT + DOWN)
+        charge2 = Charge(2, RIGHT + DOWN)
+        charge3 = Charge(-1, UP)
 
-        # Create dots for charges
-        charge_dots = VGroup()
-        for q, pos in charges:
-            color = RED if q < 0 else BLUE
-            dot = Dot(pos, color=color)
-            charge_dots.add(dot)
+class OpeningManim(Scene):
+    def construct(self):
+        title = Tex(r"This is some \LaTeX")
+        basel = MathTex(r"\sum_{n=1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}")
+        VGroup(title, basel).arrange(DOWN)
+        self.play(
+            Write(title),
+            FadeIn(basel, shift=DOWN),
+        )
+        self.wait()
 
-        self.add(charge_dots)
+        transform_title = Tex("That was a transform")
+        transform_title.to_corner(UP + LEFT)
+        self.play(
+            Transform(title, transform_title),
+            LaggedStart(*[FadeOut(obj, shift=DOWN) for obj in basel]),
+        )
+        self.wait()
 
-        # Create a grid of points where to evaluate the field
-        x_vals = np.linspace(-4, 4, 20)
-        y_vals = np.linspace(-3, 3, 15)
-        points = [np.array([x, y, 0]) for y in y_vals for x in x_vals]
+        grid = NumberPlane()
+        grid_title = Tex("This is a grid", font_size=72)
+        grid_title.move_to(transform_title)
 
-        # Function to compute electric field vector at a point
-        def electric_field_at_point(point):
-            E = np.array([0.0, 0.0, 0.0])
-            for q, pos in charges:
-                r_vec = point - pos
-                r_mag = np.linalg.norm(r_vec)
-                if r_mag < 0.1:
-                    continue  # Avoid division by zero near charge
-                E += q * r_vec / r_mag**3
-            return E
+        self.add(grid, grid_title)  # Make sure title is on top of grid
+        self.play(
+            FadeOut(title),
+            FadeIn(grid_title, shift=UP),
+            Create(grid, run_time=3, lag_ratio=0.1),
+        )
+        self.wait()
 
-        # Create arrows for the field vectors
-        arrows = VGroup()
-        for p in points:
-            E_vec = electric_field_at_point(p)
-            E_mag = np.linalg.norm(E_vec)
-            if E_mag == 0:
-                continue
-            # Normalize and scale arrow length
-            direction = E_vec / E_mag
-            arrow = Arrow(
-                start=p,
-                end=p + 0.3 * direction,
-                buff=0,
-                stroke_width=1,
-                color=YELLOW
-            )
-            arrows.add(arrow)
-
-        self.add(arrows)
-
-        # Animation: move the third charge and update field arrows
-        def update_arrows(mob):
-            new_arrows = VGroup()
-            # Update position of charge 3 dot
-            charge_dots[2].move_to(charges[2][1])
-            # Recalculate field at points
-            for p in points:
-                E = np.array([0.0, 0.0, 0.0])
-                for i, (q, pos) in enumerate(charges):
-                    r_vec = p - pos
-                    r_mag = np.linalg.norm(r_vec)
-                    if r_mag < 0.1:
-                        continue
-                    E += q * r_vec / r_mag**3
-                E_mag = np.linalg.norm(E)
-                if E_mag == 0:
-                    continue
-                direction = E / E_mag
-                new_arrow = Arrow(
-                    start=p,
-                    end=p + 0.3 * direction,
-                    buff=0,
-                    stroke_width=1,
-                    color=YELLOW
+        grid_transform_title = Tex(
+            r"That was a non-linear function \\ applied to the grid"
+        )
+        grid_transform_title.move_to(grid_title, UL)
+        grid.prepare_for_nonlinear_transform()
+        self.play(
+            grid.animate.apply_function(
+                lambda p: p
+                          + np.array(
+                    [
+                        np.sin(p[1]),
+                        np.sin(p[0]),
+                        0,
+                    ]
                 )
-                new_arrows.add(new_arrow)
-            mob.become(new_arrows)
-
-        arrows.add_updater(update_arrows)
-
-        # Animate charge3 moving from initial pos to new pos
-        new_pos = np.array([2, 2, 0])
-        steps = 60
-        for i in range(steps):
-            alpha = (i + 1) / steps
-            charges[2] = (charges[2][0], (1 - alpha) * charges[2][1] + alpha * new_pos)
-            self.wait(0.05)
-
-        arrows.remove_updater(update_arrows)
-        self.wait(2)
+            ),
+            run_time=3,
+        )
+        self.wait()
+        self.play(Transform(grid_title, grid_transform_title))
+        self.wait()

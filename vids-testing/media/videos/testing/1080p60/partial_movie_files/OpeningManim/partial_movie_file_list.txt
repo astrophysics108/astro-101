@@ -1,0 +1,11 @@
+# This file is used internally by FFMPEG.
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/3977891868_3916731119_223132457.mp4'
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/2852726489_1704852926_4151465905.mp4'
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/2852726489_3408740689_1084955206.mp4'
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/2852726489_1704852926_2514186295.mp4'
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/2852726489_776230473_3457279939.mp4'
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/2852726489_1704852926_3910109388.mp4'
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/2852726489_3481302482_3248348804.mp4'
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/2852726489_1704852926_3711024970.mp4'
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/2852726489_2170401995_3290485850.mp4'
+file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/OpeningManim/2852726489_1704852926_1128911722.mp4'
