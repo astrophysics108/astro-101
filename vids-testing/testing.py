@@ -142,4 +142,5 @@ class OpeningManim(Scene):
         )
         self.wait()
         self.play(Transform(grid_title, grid_transform_title))
-        self.wait()
+        #self.wait()
+ 
