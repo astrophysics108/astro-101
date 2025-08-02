@@ -78,7 +78,7 @@ class ElectricFieldExampleScene(Scene):
         self.add(charge1, charge2, charge3, field)
 
         # Animate charge3 moving
-        self.play(charge3.animate.move_to(2 * UP + RIGHT), run_time=3)
+        self.play(charge3.animate.move_to(2 * UP +  5 * RIGHT), run_time=3)
         
         # Remove updater if no longer needed
         field.remove_updater(update_field)

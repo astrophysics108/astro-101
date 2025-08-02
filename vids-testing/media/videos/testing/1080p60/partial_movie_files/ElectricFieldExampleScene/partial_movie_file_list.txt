@@ -1,3 +1,3 @@
 # This file is used internally by FFMPEG.
-file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/ElectricFieldExampleScene/3977891868_1529943899_3549585552.mp4'
-file 'file:C:/Users/Delana/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/ElectricFieldExampleScene/2852726489_3890345977_437261859.mp4'
+file 'file:C:/Users/dsingh/github-repos/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/ElectricFieldExampleScene/3977891868_3079475668_3549585552.mp4'
+file 'file:C:/Users/dsingh/github-repos/astro-101/vids-testing/media/videos/testing/1080p60/partial_movie_files/ElectricFieldExampleScene/2852726489_3890345977_2672386697.mp4'
